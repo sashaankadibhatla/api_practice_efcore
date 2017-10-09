@@ -1,0 +1,10 @@
+c:\Users\Administrator\Desktop\entity\api_practice\bin\Debug\netcoreapp2.0\api_practice.deps.json
+c:\Users\Administrator\Desktop\entity\api_practice\bin\Debug\netcoreapp2.0\api_practice.runtimeconfig.json
+c:\Users\Administrator\Desktop\entity\api_practice\bin\Debug\netcoreapp2.0\api_practice.runtimeconfig.dev.json
+c:\Users\Administrator\Desktop\entity\api_practice\bin\Debug\netcoreapp2.0\api_practice.dll
+c:\Users\Administrator\Desktop\entity\api_practice\bin\Debug\netcoreapp2.0\api_practice.pdb
+c:\Users\Administrator\Desktop\entity\api_practice\obj\Debug\netcoreapp2.0\api_practice.csproj.CoreCompileInputs.cache
+c:\Users\Administrator\Desktop\entity\api_practice\obj\Debug\netcoreapp2.0\api_practice.AssemblyInfoInputs.cache
+c:\Users\Administrator\Desktop\entity\api_practice\obj\Debug\netcoreapp2.0\api_practice.AssemblyInfo.cs
+c:\Users\Administrator\Desktop\entity\api_practice\obj\Debug\netcoreapp2.0\api_practice.dll
+c:\Users\Administrator\Desktop\entity\api_practice\obj\Debug\netcoreapp2.0\api_practice.pdb
