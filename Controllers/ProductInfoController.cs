@@ -67,6 +67,20 @@ namespace ProductInfo.Controllers
                     _context.Product_Info.Update(infos);
                     _context.SaveChanges();
                     return new NoContentResult();
-                    }      
+                    }
+                    
+                    [HttpDelete("{id}", Name= "GetInfo")]
+                    public IActionResult Delete(long id)
+                    {
+                     var infos = _context.Product_Info.FirstOrDefault(t => t.Id == id);
+                    if (infos == null)
+                    {
+                    return NotFound();
+                    }
+
+                    _context.Product_Info.Remove(infos);
+                    _context.SaveChanges();
+                    return new NoContentResult();
+                    }        
             }
 }
