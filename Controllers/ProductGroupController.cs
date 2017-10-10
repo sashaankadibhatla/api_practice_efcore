@@ -33,6 +33,19 @@ namespace ProductInfo.Controllers
                     return NotFound();
                 }
                 return new ObjectResult(item);
+            }
+            [HttpPost]
+            public IActionResult Create([FromBody] Product_Group item)
+            {
+            if (item == null)
+            {
+            return BadRequest();
+            }
+
+            _context.Product_Group.Add(item);
+             _context.SaveChanges();
+
+            return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
             }      
-   }
+     }
 }

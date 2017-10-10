@@ -33,6 +33,19 @@ namespace ProductInfo.Controllers
                     return NotFound();
                 }
                 return new ObjectResult(item);
+            }
+            [HttpPost]
+            public IActionResult Create([FromBody] Product_Info item)
+            {
+            if (item == null)
+            {
+        return BadRequest();
+            }
+
+            _context.Product_Info.Add(item);
+             _context.SaveChanges();
+
+            return CreatedAtRoute("GetInfo", new { id = item.Id }, item);
             }      
    }
 }
