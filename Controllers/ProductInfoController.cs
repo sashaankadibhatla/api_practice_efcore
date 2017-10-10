@@ -24,7 +24,7 @@ namespace ProductInfo.Controllers
             {
                 return await _context.Product_Info.ToListAsync();
             }
-
+                    [HttpGet("{id}", Name = "Getinfo")]
             public IActionResult GetById(int id)
             {
                 var item = _context.Product_Info.FirstOrDefault(t => t.Id == id);

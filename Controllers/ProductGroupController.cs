@@ -24,7 +24,7 @@ namespace ProductInfo.Controllers
             {
                 return await _context.Product_Group.ToListAsync();
             }
-
+                [HttpGet("{id}", Name = "Getgroup")]
             public IActionResult GetById(int id)
             {
                 var item = _context.Product_Group.FirstOrDefault(t => t.Id == id);
