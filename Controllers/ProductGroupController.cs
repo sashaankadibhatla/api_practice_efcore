@@ -45,7 +45,25 @@ namespace ProductInfo.Controllers
             _context.Product_Group.Add(item);
              _context.SaveChanges();
 
-            return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
-            }      
+            return CreatedAtRoute("Getgroup", new { id = item.Id }, item);
+            } 
+                    [HttpPut("{id}", Name= "Getgroup")]
+                    public IActionResult Update(long id, [FromBody] Product_Group item)
+                    {
+                    if (item == null || item.Id != id)
+                    {
+                    return BadRequest();
+                    }
+                    var infos = _context.Product_Group.FirstOrDefault(t => t.Id == id);
+                    if (infos == null)
+                    {
+                    return NotFound();
+                    }
+                    infos.Id=item.Id;
+                    infos.Name = item.Name;
+                    _context.Product_Group.Update(infos);
+                    _context.SaveChanges();
+                    return new NoContentResult();
+                    }      
+    }     
      }
-}

@@ -46,6 +46,27 @@ namespace ProductInfo.Controllers
              _context.SaveChanges();
 
             return CreatedAtRoute("GetInfo", new { id = item.Id }, item);
-            }      
-   }
+            }
+                        [HttpPut("{id}" ,Name="GetInfo")]
+                    public IActionResult Update(long id, [FromBody] Product_Info item)
+                    {
+                    if (item == null || item.Id != id)
+                    {
+                    return BadRequest();
+                    }
+                    var infos = _context.Product_Info.FirstOrDefault(t => t.Id == id);
+                    if (infos == null)
+                    {
+                    return NotFound();
+                    }
+                    infos.name = item.name;
+                    infos.Id=item.Id;
+                    infos.group_Id=item.group_Id;
+                    infos.description=item.description;
+                    infos.rate=item.rate;
+                    _context.Product_Info.Update(infos);
+                    _context.SaveChanges();
+                    return new NoContentResult();
+                    }      
+            }
 }
