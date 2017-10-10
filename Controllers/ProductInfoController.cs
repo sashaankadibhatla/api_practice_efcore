@@ -5,6 +5,7 @@ using GroupData;
 using GroupData.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System;
 
 namespace ProductInfo.Controllers
 {
@@ -25,62 +26,58 @@ namespace ProductInfo.Controllers
                 return await _context.Product_Info.ToListAsync();
             }
                     [HttpGet("{id}", Name = "Getinfo")]
-            public IActionResult GetById(int id)
-            {
-                var item = _context.Product_Info.FirstOrDefault(t => t.Id == id);
-                if (item == null)
-                {
-                    return NotFound();
-                }
-                return new ObjectResult(item);
-            }
-            [HttpPost]
-            public IActionResult Create([FromBody] Product_Info item)
-            {
-            if (item == null)
-            {
-        return BadRequest();
-            }
+       public async Task<List<Product_Info>> GetById(int id)
+       {
+            Product_Info objectProductInfo = await _context.Product_Info.FindAsync(id);
+            List<Product_Info> product = new List<Product_Info>();
+           try
+           {
+                product.Add(objectProductInfo);
+           }catch(Exception ex){
+               throw new Exception(ex.Message);
+           }
+           return product;
+       }
 
-            _context.Product_Info.Add(item);
-             _context.SaveChanges();
+        [HttpPost]
+        public async Task Create([FromBody] Product_Info item)
+        {
+            try
+            {
+                _context.Product_Info.Add(item);
+                await _context.SaveChangesAsync();
+            }catch(Exception ex){
+                throw new Exception(ex.Message);
+            }    
+        }
 
-            return CreatedAtRoute("GetInfo", new { id = item.Id }, item);
-            }
-                        [HttpPut("{id}" ,Name="GetInfo")]
-                    public IActionResult Update(long id, [FromBody] Product_Info item)
-                    {
-                    if (item == null || item.Id != id)
-                    {
-                    return BadRequest();
-                    }
-                    var infos = _context.Product_Info.FirstOrDefault(t => t.Id == id);
-                    if (infos == null)
-                    {
-                    return NotFound();
-                    }
-                    infos.name = item.name;
-                    infos.Id=item.Id;
-                    infos.group_Id=item.group_Id;
-                    infos.description=item.description;
-                    infos.rate=item.rate;
-                    _context.Product_Info.Update(infos);
-                    _context.SaveChanges();
-                    return new NoContentResult();
-                    }
-                    
-                    [HttpDelete("{id}", Name= "GetInfo")]
-                    public IActionResult Delete(long id)
-                    {
-                     var infos = _context.Product_Info.FirstOrDefault(t => t.Id == id);
-                    if (infos == null)
-                    {
-                    return NotFound();
-                    }
+        [HttpPut("{id}",Name="GetInfo")]
+        public async Task Update(long id, [FromBody] Product_Info item)
+        {
+            var result = _context.Product_Info.FirstOrDefault(t => t.Id == id);
+            result.Id=item.Id;
+            result.name=item.name;
+            try
+            {
+                _context.Product_Info.Update(result);
+                await _context.SaveChangesAsync();
+            }catch(Exception ex){
+                throw new Exception(ex.Message);
+            }    
+        }
 
-                    _context.Product_Info.Remove(infos);
-                    _context.SaveChanges();
-                    return new NoContentResult();
-                    }        
-            }
-}
+
+        [HttpDelete("{id}",Name="GetInfo")]
+        public async Task Delete(long id)
+        {
+            var result = _context.Product_Info.FirstOrDefault(t => t.Id == id);
+            try
+            {
+                _context.Product_Info.Remove(result);
+                await _context.SaveChangesAsync();
+            }catch(Exception ex){
+                throw new Exception(ex.Message);
+            }    
+        }   
+    }
+}  
