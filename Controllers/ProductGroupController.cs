@@ -6,11 +6,12 @@ using GroupData.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System;
+using groupservice;
 
 namespace ProductInfo.Controllers
 {
     [Route("api/[controller]")]
-    public class ProductGroupController : Controller
+    public class ProductGroupController : Controller,IProductGroupService
     {
         private readonly GroupContext _context;
 
@@ -21,12 +22,12 @@ namespace ProductInfo.Controllers
         }
 
                    [HttpGet]
-            public async Task<List<Product_Group>> GetAll()
+            public async Task<List<Product_Group>> GetAllAsync()
             {
                 return await _context.Product_Group.ToListAsync();
             }
                 [HttpGet("{id}", Name = "Getgroup")]
-       public async Task<List<Product_Group>> GetById(int id)
+       public async Task<List<Product_Group>> GetByIdAsync(int id)
        {
             Product_Group objectProductInfo = await _context.Product_Group.FindAsync(id);
             List<Product_Group> product = new List<Product_Group>();
@@ -40,7 +41,7 @@ namespace ProductInfo.Controllers
        }
 
         [HttpPost]
-        public async Task Create([FromBody] Product_Group item)
+        public async Task CreateAsync([FromBody] Product_Group item)
         {
             try
             {
@@ -52,7 +53,7 @@ namespace ProductInfo.Controllers
         }
 
         [HttpPut("{id}",Name="Getgroup")]
-        public async Task Update(long id, [FromBody] Product_Group item)
+        public async Task UpdateAsync(int id, [FromBody] Product_Group item)
         {
             var result = _context.Product_Group.FirstOrDefault(t => t.Id == id);
             result.Id=item.Id;
@@ -68,7 +69,7 @@ namespace ProductInfo.Controllers
 
 
         [HttpDelete("{id}",Name="Getgroup")]
-        public async Task Delete(long id)
+        public async Task DeleteAsync(int id)
         {
             var result = _context.Product_Group.FirstOrDefault(t => t.Id == id);
             try
